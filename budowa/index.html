@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Budowa dz. 86/64</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{
+  --bg:#F3F4F1; --surface:#FFFFFF; --ink:#1B1D1A; --muted:#5B6058; --line:#D9DCD4;
+  --sign:#F4B400; --sign-ink:#1B1D1A; --go:#1E8449; --stop:#C0392B; --stop-bg:#FBEAE7; --go-bg:#E6F3EA;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif; --body:"Barlow",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  color-scheme:dark; --bg:#141613; --surface:#1D201C; --ink:#ECEEE8; --muted:#A3A89E; --line:#343831;
+  --go:#4CC27A; --stop:#F07060; --stop-bg:#3A1F1B; --go-bg:#16301F;}}
+:root[data-theme="dark"]{
+  color-scheme:dark; --bg:#141613; --surface:#1D201C; --ink:#ECEEE8; --muted:#A3A89E; --line:#343831;
+  --go:#4CC27A; --stop:#F07060; --stop-bg:#3A1F1B; --go-bg:#16301F;}
+*{box-sizing:border-box}
+html{color-scheme:light}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--body);padding-inline:16px;padding-block:0 40px}
+.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+header{background:var(--sign);color:var(--sign-ink);margin-inline:-16px;padding:20px 16px 18px;border-bottom:4px solid var(--sign-ink)}
+header .in{max-width:720px;margin:0 auto}
+.eyebrow{font:700 13px/1 var(--display);letter-spacing:.14em;text-transform:uppercase}
+h1{font:700 clamp(34px,9vw,52px)/1 var(--display);margin:8px 0 6px;text-wrap:balance;text-transform:uppercase}
+header p{margin:0;font-weight:500}
+h2{font:700 24px/1.1 var(--display);text-transform:uppercase;letter-spacing:.02em;margin:0 0 10px;text-wrap:balance}
+section{display:flex;flex-direction:column;gap:12px}
+section>p{margin:0}
+.addr{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;gap:4px}
+.addr strong{font:700 22px/1.2 var(--display)}
+.addr span{color:var(--muted)}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 18px;border-radius:6px;font:600 16px/1 var(--body);text-decoration:none;border:2px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn:focus-visible{outline:3px solid var(--sign);outline-offset:2px}
+.rule{border-radius:8px;padding:12px 14px;display:grid;gap:4px}
+.rule b{font:700 18px/1.2 var(--display);text-transform:uppercase;letter-spacing:.03em}
+.rule.go{background:var(--go-bg);border-left:6px solid var(--go)}
+.rule.go b{color:var(--go)}
+.rule.stop{background:var(--stop-bg);border-left:6px solid var(--stop)}
+.rule.stop b{color:var(--stop)}
+figure{margin:0;display:flex;flex-direction:column;gap:6px}
+figure img{display:block;width:100%;height:auto;border-radius:6px;border:1px solid var(--line);background:#fff}
+figcaption{font-size:14px;color:var(--muted)}
+.code{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px}
+.digits{display:flex;gap:6px}
+.digits span{font:700 44px/1 var(--mono);background:var(--ink);color:var(--bg);width:56px;height:68px;display:grid;place-items:center;border-radius:6px;font-variant-numeric:tabular-nums}
+.code p{margin:0;flex:1 1 220px;color:var(--muted);font-size:15px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.two{grid-template-columns:1fr}}
+.contacts{display:grid;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.contacts div{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--line)}
+.contacts div:first-child{border-top:0}
+.contacts small{display:block;color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+.contacts .num{min-height:44px;display:inline-flex;align-items:center;text-decoration:underline;text-underline-offset:3px;font:700 18px/1.3 var(--mono);color:var(--ink);text-decoration:none;font-variant-numeric:tabular-nums;align-self:center}
+.meta{font:500 13px/1.5 var(--mono);color:var(--muted)}
+.level{background:var(--stop);color:#fff;border-radius:8px;padding:16px;display:grid;gap:6px}
+.level .lbl{font:700 14px/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase}
+.level .val span{white-space:nowrap}
+.level .val{font:700 clamp(26px,7.6vw,44px)/1.15 var(--mono);font-variant-numeric:tabular-nums}
+.level p{margin:0;font-size:15px}
+.level s{opacity:.85}
+ul{margin:0;padding-left:20px;display:grid;gap:4px}
+</style>
+</head>
+<body>
+
+<header><div class="in">
+  <div class="eyebrow">Informacja dla wykonawców</div>
+  <h1>Lewandowski · Aleksandrów Łódzki</h1>
+  <p>ul. Ludowa / Strumykowa, dz. nr 86/64, obręb A-7<br>95-070 Aleksandrów Łódzki</p>
+</div></header>
+
+<main class="wrap">
+
+<section id="adres">
+  <h2>Pinezka</h2>
+  <div class="btns">
+    <a class="btn primary" href="https://maps.app.goo.gl/4iwYzUoqxvXXV1s27" target="_blank" rel="noopener">Otwórz pinezkę w Mapach Google</a>
+    <a class="btn" href="budowa.pdf" target="_blank">Wersja PDF</a>
+  </div>
+</section>
+
+<section id="dojazd">
+  <h2>Dojazd</h2>
+  <div class="rule go">
+    <b>Z ul. Warszawskiej przez ul. Rzeczną</b>
+    <span>Z ul. Warszawskiej skręć w ul. Rzeczną i dojedź nią do ul. Strumykowej (zielona trasa). To droga gminna, na którą jest zgoda Urzędu Miejskiego w Aleksandrowie Łódzkim na przejazd pojazdów ciężarowych Expobud powyżej 7 t.</span>
+  </div>
+  <div class="rule stop">
+    <b>Nie skręcaj od razu w Strumykową</b>
+    <span>Nie skręcaj z ul. Warszawskiej bezpośrednio w ul. Strumykową (czerwona trasa). Ten odcinek biegnie częściowo drogą prywatną, nie jest objęty zgodą i inwestor nie odpowiada za przejazd tamtędy.</span>
+  </div>
+  <figure>
+    <a href="mapa.jpg" target="_blank"><img src="mapa.jpg" alt="Mapa satelitarna: zielona trasa od ul. Rzecznej, czerwona trasa od Strumykowej zakazana, serce oznacza działkę"></a>
+    <figcaption>Zielona trasa: przez ul. Rzeczną. Czerwona: nie jechać. Serce: wjazd na działkę. Stuknij, aby powiększyć.</figcaption>
+  </figure>
+</section>
+
+<section id="klodka">
+  <h2>Kłódka na bramie</h2>
+  <div class="code">
+    <div class="digits" aria-label="Kod 1 3 5"><span>1</span><span>3</span><span>5</span></div>
+    <p>Ustaw kod na kłódce łańcucha przy bramie. Po wyjściu zapnij łańcuch i przekręć bębenki na dowolne cyfry.</p>
+  </div>
+  <div class="two">
+    <figure>
+      <a href="klodka.jpg" target="_blank"><img src="klodka.jpg" alt="Czerwona kłódka szyfrowa na łańcuchu przy bramie"></a>
+      <figcaption>Kłódka szyfrowa na łańcuchu.</figcaption>
+    </figure>
+    <figure>
+      <a href="tablica.jpg" target="_blank"><img src="tablica.jpg" alt="Żółta tablica informacyjna budowy na ogrodzeniu działki"></a>
+      <figcaption>Tak wygląda działka od ulicy: żółta tablica budowy.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="pzt">
+  <h2>Plan działki (PZT) z wymiarami</h2>
+  <div class="level" role="note">
+    <span class="lbl">Poziom posadzki parteru (ppp) · aktualny</span>
+    <span class="val"><span>±0,00 =</span> <span>171,05 m n.p.m.</span></span>
+    <p>Wartość po zmianie. Na rysunku PZT jest jeszcze stara wartość <s>170,95</s>. Nie wolno z niej korzystać.</p>
+  </div>
+  <p>Projekt zagospodarowania terenu, skala 1:500. Zjazd na działkę od ul. Ludowej (zachodnia strona).</p>
+  <figure>
+    <a href="pzt_crop2.jpg" target="_blank"><img src="pzt_crop2.jpg" alt="Projekt zagospodarowania terenu działki 86/64 z wymiarami budynku i odległościami od granic"></a>
+    <figcaption>Wycinek z wymiarami. Stuknij, aby otworzyć w pełnej rozdzielczości.</figcaption>
+  </figure>
+  <div class="btns">
+    <a class="btn" href="pzt_full2.jpg" target="_blank">Cały arkusz PZT z legendą</a>
+  </div>
+</section>
+
+<section id="zgoda">
+  <h2>Zgoda gminy na przejazd &gt;7 t</h2>
+  <p class="meta">IR.7021.2.114.2026.RM · 29.07.2026 · ważna do 31.12.2026</p>
+  <p>Zgoda dotyczy kierowców pojazdów ciężarowych firmy Expobud Domy Sp. z o.o. Na wypadek kontroli warto mieć ją w telefonie.</p>
+  <figure>
+    <a href="zgoda.jpg" target="_blank"><img src="zgoda.jpg" alt="Pismo Urzędu Miejskiego w Aleksandrowie Łódzkim z 29.07.2026 o zgodzie na przejazd pojazdów ciężarowych ul. Strumykową"></a>
+    <figcaption>Pismo Urzędu Miejskiego w Aleksandrowie Łódzkim.</figcaption>
+  </figure>
+</section>
+
+<section id="kontakt">
+  <h2>Kontakt</h2>
+  <div class="contacts">
+    <div><span><small>Inwestor</small>Przemysław Lewandowski</span><a class="num" href="tel:+48609239880">609 239 880</a></div>
+    <div><span><small>Kierownik budowy</small>Zdzisław Antoniak</span><a class="num" href="tel:+48889417097">889 417 097</a></div>
+    <div><span><small>Inspektor nadzoru</small>Grzegorz Piwowarski</span><a class="num" href="tel:+48660728007">660 728 007</a></div>
+  </div>
+  <p class="meta">Pozwolenie na budowę nr 776/2026 z 30.07.2026 · Starosta Zgierski</p>
+</section>
+
+</main>
+</body>
+</html>
